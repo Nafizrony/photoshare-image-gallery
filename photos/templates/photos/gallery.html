@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Photo Gallery Website{% endblock title %}
+{% block content %}
+<div class="gallery mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <ul class="list-group my-2">
+                  <li class="list-group-item pt-3 pb-3" style="font-weight:600;font-size:20px">Categories</li>
+                  <li class="list-group-item pt-3 pb-3"><a style="text-decoration:none;color:#222;font-size:20px" href="{% url 'gallery' %}">All</a></li>
+                    {% for category in categories %}
+                    <li class="list-group-item pt-3 pb-3"><a style="text-decoration:none;color:#222;font-size:20px" href="{{category.get_url}}">{{category}}</a></li>
+                    {% endfor %}
+                      
+                    <li class="list-group-item"><a href="{% url 'add_photo' %}" class="btn btn-dark" style="width:100%">Add Photo</a></li>
+                </ul>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                  
+                  {% for gallery in gallery %}
+                    <div class="col-4">
+                      <div class="card my-2">
+                          <img height="250" src="{{gallery.images.url}}" class="img-thumbnail" alt="...">
+                          <div class="card-body">
+                            <h5 class="card-text mb-4">Category : {{gallery.category.category_name}}</h5>
+                            <a href="{{gallery.get_url}}" class="btn d-block btn-outline-dark">View</a>
+                          </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
